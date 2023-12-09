@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://jopvmc1r5vq1"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_0jfh1"]
+[ext_resource type="Texture2D" uid="uid://c1ebte16oy5lt" path="res://icon.svg" id="1_jkwob"]
+[ext_resource type="PackedScene" uid="uid://bnfq0vicquvnj" path="res://player.tscn" id="2_cftim"]
+[ext_resource type="Texture2D" uid="uid://cy80ae1mjb3f3" path="res://Light.png" id="4_h7eus"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hd4fs"]
+blend_mode = 3
+
+[node name="game" type="Node2D" node_paths=PackedStringArray("fog", "Player")]
+script = ExtResource("1_0jfh1")
+fog = NodePath("fog")
+fogWidth = 2000
+fogHeight = 2000
+LightTexture = ExtResource("4_h7eus")
+lightWidth = 100
+lightHeight = 50
+Player = NodePath("player")
+debounce_time = 0.1
+
+[node name="bg" type="Sprite2D" parent="."]
+position = Vector2(590, 346)
+scale = Vector2(9.40142, 6.14494)
+texture = ExtResource("1_jkwob")
+
+[node name="player" parent="." instance=ExtResource("2_cftim")]
+position = Vector2(373, 222)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="player"]
+remote_path = NodePath("../../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(373, 222)
+
+[node name="fog" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_hd4fs")
+texture = ExtResource("4_h7eus")
+centered = false
